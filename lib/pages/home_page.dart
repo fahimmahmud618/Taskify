@@ -15,12 +15,14 @@ class _HomePageState extends State<HomePage> {
         child: Text("This is home page"),
       ),
         floatingActionButton: FloatingActionButton(
+
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask()));
           },
           child: Icon(
-              Icons.add
+              Icons.add,
           ),
+          shape: CircleBorder(),
         )
     );
   }
