@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskify/widgets/input_widgets.dart';
+import 'package:taskify/widgets/input_widget.dart';
 import 'package:taskify/styles.dart';
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
