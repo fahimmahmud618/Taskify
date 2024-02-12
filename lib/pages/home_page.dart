@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/add_task_page.dart';
 import 'package:taskify/widgets/task_tile_widget.dart';
-
+import 'package:taskify/widgets/taskify_nameplate.dart';
 import '../model/todo.dart';
 import '../model/user.dart';
 
@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
+                TaskifyNameplate(context),
                 searchBox(),
                 Expanded(child: ListView(
                   children: [
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddTask()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddTask(addToDoItem: _addToDoItem,)));
         },
         child: Icon(Icons.add),
         shape: CircleBorder(),
@@ -80,8 +81,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _addToDoItem(String todoText) {
+  void _addToDoItem(String todoTitle, String todoDescription) {
     setState(() {
+      Todo addedTodo = new Todo("10", "fahim", todoTitle, todoDescription, DateTime.now(), false);
+      foundedToDoFromSearch.add(addedTodo);
       // todoList.add(Todo(id: DateTime.now().toString(), todo_text: todoText),);
     });
     // todoAddController.clear();
