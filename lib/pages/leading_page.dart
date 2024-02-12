@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/home_page.dart';
+import 'package:taskify/pages/sign_up.dart';
 class LeadingPage extends StatefulWidget {
   const LeadingPage({super.key});
 
@@ -15,7 +16,7 @@ class _LeadingPageState extends State<LeadingPage> {
     super.initState();
     Timer(
       Duration(seconds: 2), (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
     }
     );
   }
