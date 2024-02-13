@@ -5,7 +5,7 @@ import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/input_widget.dart';
 import 'package:taskify/pages/sign_up.dart';
 import 'package:taskify/pages/home_page.dart';
-
+import 'package:taskify/pages/password_recovery.dart';
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -24,14 +24,21 @@ class _SignInState extends State<SignIn> {
           children: [
             TaskifyNameplate(context),
             Text("Sign up in Taskify", style: headingStyle(context)),
-            InputTextWidget("Your Username (User name should be unique)", "Username",usernameController, context),
-            InputTextWidget("Password (At least 6 character)", "Password", passwordController, context),
+            InputTextWidget("Your Username (User name should be unique)", "Username",usernameController, false, context),
+            InputTextWidget("Password (At least 6 character)", "Password", passwordController, true, context),
             TextButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
               },
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
               label: Text("Sign In", style: normalTextStyle(context)),
+            ),
+            InkWell(
+              onTap: (){
+                print("Forgot pass pressed");
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordRecovery()));
+              },
+              child: Text("Forgot Password?", style: normalTextStyle(context)),
             ),
             InkWell(
               onTap: (){

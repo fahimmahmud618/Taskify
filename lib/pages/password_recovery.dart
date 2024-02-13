@@ -4,15 +4,16 @@ import 'package:taskify/widgets/taskify_nameplate.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/input_widget.dart';
 import 'package:taskify/pages/sign_in.dart';
+import 'package:taskify/pages/home_page.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class PasswordRecovery extends StatefulWidget {
+  const PasswordRecovery({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<PasswordRecovery> createState() => _PasswordRecoveryState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _PasswordRecoveryState extends State<PasswordRecovery> {
   TextEditingController usernameController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   TextEditingController recoveryPinController = new TextEditingController();
@@ -23,16 +24,16 @@ class _SignUpState extends State<SignUp> {
         child: Column(
           children: [
             TaskifyNameplate(context),
-            Text("Sign up in Taskify", style: headingStyle(context)),
-            InputTextWidget("Your Username (User name should be unique)", "Username",usernameController, false, context),
-            InputTextWidget("Password (At least 6 character)", "Password", passwordController, true, context),
-            InputTextWidget("Ricovry Pin (This will be used in case of password being forgotten)", "Recovery Pin",recoveryPinController, true, context),
+            Text("Password Recovery", style: headingStyle(context)),
+            InputTextWidget("Your Username", "Username",usernameController, false, context),
+            InputTextWidget("Recovery Pin (Enter the pin set during signup)", "Recovery Pin",recoveryPinController, true, context),
+            InputTextWidget("New Password (At least 6 character)", "Password", passwordController, true, context),
             TextButton.icon(
               onPressed: () {
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
               },
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
-              label: Text("Sign Up", style: normalTextStyle(context)),
+              label: Text("Set new Password", style: normalTextStyle(context)),
             ),
             InkWell(
               onTap: (){

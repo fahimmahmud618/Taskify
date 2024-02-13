@@ -40,16 +40,29 @@ class ToDoItem extends StatelessWidget {
             decoration: todo.isDone? TextDecoration.lineThrough: null,
           ),
         ),
-        trailing: Container(
-          child: IconButton(
-            color: Colors.pinkAccent,
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              ondelete(todo.id);
-              print('delete button');
-            },
-          ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min, // Ensure the Row only takes the minimum space required
+          children: [
+            IconButton(
+              color: Colors.black,
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                // Handle edit functionality
+                print('edit button');
+              },
+            ),
+            SizedBox(width: 8), // Adjust the width as needed for spacing
+            IconButton(
+              color: Colors.pinkAccent,
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                ondelete(todo.id);
+                print('delete button');
+              },
+            ),
+          ],
         ),
+
       ),
     );
   }
