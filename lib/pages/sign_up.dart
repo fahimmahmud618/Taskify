@@ -23,8 +23,11 @@ class _SignUpState extends State<SignUp> {
         decoration: bgDecor(),
         child: Column(
           children: [
+            SizedBox(height: 10*get_scale_factor(context),),
             TaskifyNameplate(context),
+            SizedBox(height: 30*get_scale_factor(context),),
             Text("Sign up in Taskify", style: headingStyle(context)),
+            SizedBox(height: 60*get_scale_factor(context),),
             InputTextWidget("Your Username (User name should be unique)", "Username",usernameController, false, context),
             InputTextWidget("Password (At least 6 character)", "Password", passwordController, true, context),
             InputTextWidget("Ricovry Pin (This will be used in case of password being forgotten)", "Recovery Pin",recoveryPinController, true, context),

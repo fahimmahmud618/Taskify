@@ -23,7 +23,8 @@ class _AddTaskState extends State<AddTask> {
         decoration: bgDecor(),
         child: Column(
           children: [
-            TaskifyNameplate(context),
+            SizedBox(height: 10*get_scale_factor(context),),
+            TaskifyNameplateWithLogOut(context),
             Text("Add a New Task", style: headingStyle(context)),
             InputTextWidget("Add Title", "Your title here", taskTitle, false, context),
             InputTextWidget("Add Description","Your description here", taskDescription, false, context),

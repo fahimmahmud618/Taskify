@@ -14,9 +14,9 @@ class ToDoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // decoration: bgDecor(),
-      margin: EdgeInsets.only(bottom: 20),
-      child: ListTile(
+      margin: EdgeInsets.fromLTRB(20*get_scale_factor(context), 5*get_scale_factor(context), 20*get_scale_factor(context),10*get_scale_factor(context)),
 
+      child: ListTile(
         onTap: (){
           ontodochange(todo);
           print('clicked on the tile');
@@ -29,12 +29,14 @@ class ToDoItem extends StatelessWidget {
         leading: Icon(
           todo.isDone? Icons.check_box: Icons.check_box_outline_blank,
           color: Colors.white,
+            size: 25*get_scale_factor(context)
         ),
         title: Text(
           todo.title!,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontSize: 15*get_scale_factor(context),
             decoration: todo.isDone? TextDecoration.lineThrough: null,
           ),
         ),
@@ -42,6 +44,7 @@ class ToDoItem extends StatelessWidget {
           todo.description!,
           style: TextStyle(
             color: Colors.white,
+            fontSize: 15*get_scale_factor(context),
             decoration: todo.isDone? TextDecoration.lineThrough: null,
           ),
         ),
@@ -50,16 +53,16 @@ class ToDoItem extends StatelessWidget {
           children: [
             IconButton(
               color: Colors.white70,
-              icon: Icon(Icons.edit),
+              icon: Icon(Icons.edit, size: 25*get_scale_factor(context)),
               onPressed: () {
                 // Handle edit functionality
                 print('edit button');
               },
             ),
-            SizedBox(width: 8), // Adjust the width as needed for spacing
+            SizedBox(width: 8*get_scale_factor(context)), // Adjust the width as needed for spacing
             IconButton(
               color: Colors.pinkAccent,
-              icon: Icon(Icons.delete),
+              icon: Icon(Icons.delete, size: 25*get_scale_factor(context)),
               onPressed: () {
                 ondelete(todo.id);
                 print('delete button');
@@ -67,7 +70,6 @@ class ToDoItem extends StatelessWidget {
             ),
           ],
         ),
-
       ),
     );
   }

@@ -24,8 +24,11 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
         decoration: bgDecor(),
         child: Column(
           children: [
+            SizedBox(height: 10*get_scale_factor(context),),
             TaskifyNameplate(context),
+            SizedBox(height: 30*get_scale_factor(context),),
             Text("Password Recovery", style: headingStyle(context)),
+            SizedBox(height: 60*get_scale_factor(context),),
             InputTextWidget("Your Username", "Username",usernameController, false, context),
             InputTextWidget("Recovery Pin (Enter the pin set during signup)", "Recovery Pin",recoveryPinController, true, context),
             InputTextWidget("New Password (At least 6 character)", "Password", passwordController, true, context),

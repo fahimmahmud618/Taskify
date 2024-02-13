@@ -41,24 +41,22 @@ class _HomePageState extends State<HomePage> {
         decoration: bgDecor(),
         child: Stack(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  TaskifyNameplate(context),
-                  searchBox(),
-                  Expanded(child: ListView(
-                    children: [
-                      for(Todo todo in foundedToDoFromSearch)
-                        ToDoItem(todo: todo,
-                          ontodochange: _handleToDoChange,
-                          ondelete: _handleDeleteToDOItem,
-                        ),
-                    ],
-                  )
-                  )
-                ],
-              ),
+            Column(
+              children: [
+                SizedBox(height: 10*get_scale_factor(context),),
+                TaskifyNameplateWithLogOut(context),
+                searchBox(),
+                Expanded(child: ListView(
+                  children: [
+                    for(Todo todo in foundedToDoFromSearch)
+                      ToDoItem(todo: todo,
+                        ontodochange: _handleToDoChange,
+                        ondelete: _handleDeleteToDOItem,
+                      ),
+                  ],
+                )
+                )
+              ],
             ),
           ],
         ),
@@ -111,8 +109,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget searchBox() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      margin: EdgeInsets.symmetric(vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 5*get_scale_factor(context)),
+      margin: EdgeInsets.symmetric(vertical: 15*get_scale_factor(context), horizontal: 20*get_scale_factor(context)),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(17),
@@ -130,7 +128,7 @@ class _HomePageState extends State<HomePage> {
           prefixIcon: Icon(
             Icons.search,
             color: Colors.white,
-            size: 20,
+            size: 20*get_scale_factor(context),
           ),
           prefixIconConstraints: BoxConstraints(
             maxHeight: 20,
