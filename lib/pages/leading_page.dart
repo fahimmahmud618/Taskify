@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/home_page.dart';
 import 'package:taskify/pages/sign_up.dart';
+import 'package:taskify/widgets/taskify_nameplate.dart';
 
 import '../styles.dart';
 class LeadingPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _LeadingPageState extends State<LeadingPage> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 2), (){
+      Duration(seconds: 1), (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
     }
     );
@@ -29,18 +30,20 @@ class _LeadingPageState extends State<LeadingPage> {
         child: Container(
           decoration: bgDecor(),
           child: Center(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Taskify"),
-                  Icon(Icons.task),
-                ],
-              ),
-            ),
+            child: Padding(
+          padding: EdgeInsets.only(left: 20*get_scale_factor(context)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.task, size: 25*get_scale_factor(context), color: Colors.teal.shade400,),
+            Text("Taskify", style: logoTextStyle(context),),
+          ],
+        ),
+      )
           ),
         ),
       ),
     );
   }
+
 }

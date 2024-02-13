@@ -13,6 +13,7 @@ TextStyle headingStyle(BuildContext context) {
   double scaleFactor = screenWidth / 375.0;
 
   return TextStyle(
+    color: Colors.white,
     fontSize: 25 * scaleFactor,
   );
 }
@@ -22,6 +23,7 @@ TextStyle logoTextStyle(BuildContext context) {
   double scaleFactor = screenWidth / 375.0;
 
   return TextStyle(
+    color: Colors.white,
     fontSize: 20 * scaleFactor,
   );
 }

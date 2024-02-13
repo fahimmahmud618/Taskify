@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/styles.dart';
+import 'package:taskify/widgets/alert.dart';
 
 Widget TaskifyNameplate(BuildContext context){
   return Padding(
@@ -29,6 +30,7 @@ Widget TaskifyNameplateWithLogOut(BuildContext context){
         ),
         TextButton.icon(
           onPressed: () {
+            showAlertDialog("Alert","Feilds cannot be empty!",context);
           },
           icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
           label: Text("Log out", style: normalTextStyle(context)),
