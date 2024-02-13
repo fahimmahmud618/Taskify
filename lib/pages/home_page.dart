@@ -84,8 +84,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _addToDoItem(String todoTitle, String todoDescription) {
+    String newID = user1.userName + DateTime.now().toString();
     setState(() {
-      Todo addedTodo = new Todo("10", "fahim", todoTitle, todoDescription, DateTime.now(), false);
+      Todo addedTodo = new Todo(newID, "fahim", todoTitle, todoDescription, DateTime.now(), false);
       foundedToDoFromSearch.add(addedTodo);
       // todoList.add(Todo(id: DateTime.now().toString(), todo_text: todoText),);
     });
