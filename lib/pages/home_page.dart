@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/add_task_page.dart';
+import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/task_tile_widget.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import '../model/todo.dart';
@@ -36,28 +37,31 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                TaskifyNameplate(context),
-                searchBox(),
-                Expanded(child: ListView(
-                  children: [
-                    for(Todo todo in foundedToDoFromSearch)
-                      ToDoItem(todo: todo,
-                        ontodochange: _handleToDoChange,
-                        ondelete: _handleDeleteToDOItem,
-                      ),
-                  ],
-                )
-                )
-              ],
+      body: Container(
+        decoration: bgDecor(),
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  TaskifyNameplate(context),
+                  searchBox(),
+                  Expanded(child: ListView(
+                    children: [
+                      for(Todo todo in foundedToDoFromSearch)
+                        ToDoItem(todo: todo,
+                          ontodochange: _handleToDoChange,
+                          ondelete: _handleDeleteToDOItem,
+                        ),
+                    ],
+                  )
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -110,24 +114,24 @@ class _HomePageState extends State<HomePage> {
       padding: EdgeInsets.symmetric(horizontal: 15),
       margin: EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(17),
         border: Border.all(
-          color: Colors.white, // Set the desired border color
-          width: 0.8, // Set the desired border width
+          color: Colors.white.withOpacity(0.5), // Set the desired border color
+          width: 0.6, // Set the desired border width
         ),
       ),
       child: TextField(
         onChanged: (value)=> _runFilter(value),
         decoration: InputDecoration(
+          hintText: "Search",
+          hintStyle: hintTextStyle(context),
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
             color: Colors.white,
             size: 20,
           ),
-          prefixText: "Search : ",
-          prefixStyle: TextStyle(color: Colors.white),
           prefixIconConstraints: BoxConstraints(
             maxHeight: 20,
             minWidth: 25,

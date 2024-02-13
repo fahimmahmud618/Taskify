@@ -7,7 +7,7 @@ Widget TaskifyNameplate(BuildContext context){
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.task, size: 25*get_scale_factor(context), color: Colors.lightGreenAccent,),
+        Icon(Icons.task, size: 25*get_scale_factor(context), color: Colors.teal.shade400,),
         Text("Taskify", style: logoTextStyle(context),),
       ],
     ),

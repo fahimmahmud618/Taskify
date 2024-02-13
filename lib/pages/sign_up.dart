@@ -20,6 +20,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: bgDecor(),
         child: Column(
           children: [
             TaskifyNameplate(context),

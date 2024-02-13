@@ -46,3 +46,14 @@ TextStyle hintTextStyle(BuildContext context) {
     // Add other text style properties as needed
   );
 }
+
+BoxDecoration bgDecor (){
+  return BoxDecoration(
+      gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      // colors: [Colors.blue, Colors.purple],
+      colors: [Colors.teal.shade900, Colors.black],
+    )
+  );
+}

@@ -20,6 +20,7 @@ class _AddTaskState extends State<AddTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: bgDecor(),
         child: Column(
           children: [
             TaskifyNameplate(context),

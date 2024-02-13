@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/styles.dart';
 import '../model/todo.dart';
 
 class ToDoItem extends StatelessWidget {
@@ -12,24 +13,27 @@ class ToDoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
+      // decoration: bgDecor(),
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
+
         onTap: (){
           ontodochange(todo);
           print('clicked on the tile');
         },
         shape: RoundedRectangleBorder(
+
           borderRadius: BorderRadius.circular(20),
         ),
-        tileColor: Colors.lightGreenAccent,
+        tileColor: Colors.white,
         leading: Icon(
           todo.isDone? Icons.check_box: Icons.check_box_outline_blank,
-          color: Colors.black,
+          color: Colors.white,
         ),
         title: Text(
           todo.title!,
           style: TextStyle(
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             decoration: todo.isDone? TextDecoration.lineThrough: null,
           ),
@@ -37,6 +41,7 @@ class ToDoItem extends StatelessWidget {
         subtitle: Text(
           todo.description!,
           style: TextStyle(
+            color: Colors.white,
             decoration: todo.isDone? TextDecoration.lineThrough: null,
           ),
         ),
@@ -44,7 +49,7 @@ class ToDoItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min, // Ensure the Row only takes the minimum space required
           children: [
             IconButton(
-              color: Colors.black,
+              color: Colors.white70,
               icon: Icon(Icons.edit),
               onPressed: () {
                 // Handle edit functionality

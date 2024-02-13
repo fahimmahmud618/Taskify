@@ -6,7 +6,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       primaryColor: Colors.white,
-      scaffoldBackgroundColor: Colors.black,
+      scaffoldBackgroundColor: Colors.transparent, // Set a transparent background for the gradient
       iconTheme: IconThemeData(
         color: Colors.white,
       ),
@@ -16,18 +16,19 @@ void main() {
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all(Colors.black),
-          padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-          backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent,),
+          foregroundColor: MaterialStateProperty.all(Colors.white),
+          padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+          backgroundColor: MaterialStateProperty.all(Colors.teal.shade900),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.lightGreenAccent
-      )
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.teal.shade900,
+      ),
     ),
     home: SafeArea(
-      child: LeadingPage(),
+      child:  LeadingPage(),
+      ),
     ),
-  ));
+  );
 }
