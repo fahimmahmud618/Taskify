@@ -26,6 +26,8 @@ void main() {
         backgroundColor: Colors.lightGreenAccent
       )
     ),
-    home: LeadingPage(),
+    home: SafeArea(
+      child: LeadingPage(),
+    ),
   ));
 }

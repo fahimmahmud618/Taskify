@@ -24,8 +24,8 @@ class _AddTaskState extends State<AddTask> {
           children: [
             TaskifyNameplate(context),
             Text("Add a New Task", style: headingStyle(context)),
-            InputTextWidget("Add Title", taskTitle, context),
-            InputTextWidget("Add Description", taskDescription, context),
+            InputTextWidget("Add Title", "Your title here", taskTitle, context),
+            InputTextWidget("Add Description","Your description here", taskDescription, context),
             TextButton.icon(
               onPressed: () {
                 widget.addToDoItem(taskTitle.text, taskDescription.text);
