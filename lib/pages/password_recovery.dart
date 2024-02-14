@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/widgets/alert.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/input_widget.dart';
@@ -35,8 +36,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
             InputTextWidget("New Password (At least 6 character)", "Password", passwordController, true, context),
             TextButton.icon(
               onPressed: () {
-                updatePassword(usernameController.text, passwordController.text);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+                updatePassword(usernameController.text,recoveryPinController.text, passwordController.text);
               },
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
               label: Text("Set new Password", style: normalTextStyle(context)),
@@ -53,12 +53,13 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
     );
   }
 
-  Future<void> updatePassword(String userName, String newPassword) async {
+  Future<void> updatePassword(String userName, String pin, String newPassword) async {
     try {
       print("password recovery statred");
       final querySnapshot = await FirebaseFirestore.instance
           .collection('user')
           .where('userName', isEqualTo: userName)
+          .where('pin', isEqualTo: pin)
           .get();
 
       print(querySnapshot);
@@ -71,10 +72,12 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
             .update({
           'password': newPassword,
         });
-
+        showAlertDialog("Info", 'Password has reset', context);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
         print('Password updated successfully!');
       } else {
-        print('No user found with the provided userName');
+        showAlertDialog("Error!", 'Wrong username or pin', context);
+        print('Username of pin wrong');
       }
     } catch (e) {
       print('Error updating password: $e');
