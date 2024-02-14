@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/pages/home_page.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/input_widget.dart';
 import 'package:taskify/pages/sign_in.dart';
+
+import '../model/user.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -33,6 +37,17 @@ class _SignUpState extends State<SignUp> {
             InputTextWidget("Ricovry Pin (This will be used in case of password being forgotten)", "Recovery Pin",recoveryPinController, true, context),
             TextButton.icon(
               onPressed: () {
+                  User newUser = new User(
+                    userName: usernameController.text,
+                    password: passwordController.text,
+                    pin: recoveryPinController.text,
+                  );
+                  try {
+                    FirebaseFirestore.instance.collection("user").add(newUser.toMap());
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                  } on Exception catch (e) {
+                    print(e);
+                  }
 
               },
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
