@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/add_task_page.dart';
 import 'package:taskify/styles.dart';
@@ -5,7 +6,7 @@ import 'package:taskify/widgets/task_tile_widget.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import '../model/todo.dart';
 import '../model/user.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -21,17 +22,40 @@ class _HomePageState extends State<HomePage> {
   late User user1;
   late List<Todo> todoList;
   List<Todo> foundedToDoFromSearch =[];
+
+  Future<void> fetchTodoList() async {
+    try {
+      // Fetch the data from Firestore
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection("todo").orderBy('dateTime', descending: false).get();
+
+      // Convert the QuerySnapshot to a List<Todo>
+      todoList = querySnapshot.docs
+          .map((doc) => Todo.fromMap(doc.data() as Map<String, dynamic>))
+          .toList();
+
+      setState(() {
+        foundedToDoFromSearch = todoList;
+      });
+    } catch (e) {
+      print("Error fetching data: $e");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
 
     // Initialize Todos and User in
-    user1 = User("Fahim", "iit123");
-    todo1 = Todo("1",user1.userName, "walk", "have to walk", DateTime.now(), false);
-    todo2 = Todo("2",user1.userName, "eat", "have to eat", DateTime.now(), false);
-    todo3 = Todo("3",user1.userName, "sleep", "have to eat", DateTime.now(), false);
-    todoList = [todo1, todo2, todo3];
-    foundedToDoFromSearch = todoList;
+    user1 = User(userName: "Fahim", password: "iit123",pin: "11");
+    fetchTodoList();
+    // todo1 = Todo(id: "1",userName: user1.userName,title: "walk",description: "have to walk",dateTime: DateTime.now(),isDone: false);
+    // todo2 = Todo(id: "1",userName: user1.userName,title: "walk22",description: "have to walk",dateTime: DateTime.now(),isDone: false);
+    // todo3 = Todo(id: "1",userName: user1.userName,title: "walk2233",description: "have to walk",dateTime: DateTime.now(),isDone: false);
+    // // todo2 = Todo("2",user1.userName, "eat", "have to eat", DateTime.now(), false);
+    // // todo3 = Todo("3",user1.userName, "sleep", "have to eat", DateTime.now(), false);
+    // todoList = [todo1, todo2, todo3];
+    // foundedToDoFromSearch = todoList;
   }
 
   @override
@@ -86,12 +110,19 @@ class _HomePageState extends State<HomePage> {
   void _addToDoItem(String todoTitle, String todoDescription) {
     String newID = user1.userName + DateTime.now().toString();
     setState(() {
-      Todo addedTodo = new Todo(newID, "fahim", todoTitle, todoDescription, DateTime.now(), false);
+      Todo addedTodo = Todo(
+        id: newID,
+        userName: "fahim",
+        title: todoTitle,
+        description: todoDescription,
+        dateTime: DateTime.now().toString(),
+        isDone: false,
+      );
+      FirebaseFirestore.instance.collection("todo").add(addedTodo.toMap());
       foundedToDoFromSearch.add(addedTodo);
-      // todoList.add(Todo(id: DateTime.now().toString(), todo_text: todoText),);
     });
-    // todoAddController.clear();
   }
+
   void _runFilter(String enteredKeyword){
     List<Todo> results = [];
     if(enteredKeyword.isEmpty){

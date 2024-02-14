@@ -1,13 +1,29 @@
 import 'package:taskify/model/todo.dart';
 
-class User{
+class User {
   String userName;
   String password;
-  List<Todo>? todoList;
+  String pin;
 
-  User(this.userName, this.password);
+  User({
+    required this.userName,
+    required this.password,
+    required this.pin,
+  });
 
-  void addTodo(Todo todo){
-    this.todoList?.add(todo);
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      userName: map['userName'] ?? '',
+      password: map['password'] ?? '',
+      pin: map['pin'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'userName': userName,
+      'password': password,
+      'pin': pin,
+    };
   }
 }
