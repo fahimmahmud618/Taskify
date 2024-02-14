@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
                       ToDoItem(todo: todo,
                         ontodochange: _handleToDoChange,
                         ondelete: _handleDeleteToDOItem,
+                        onedit: _handleTodoEdit,
                       ),
                   ],
                 )
@@ -96,6 +97,17 @@ class _HomePageState extends State<HomePage> {
       todo.isDone = !todo.isDone;
     });
     updateisDone(todo.id, !todo.isDone);
+  }
+
+  void _handleTodoEdit(Todo todo, String newT, String newD) {
+    updatetodo(todo, newT, newD);
+    print("on edit function called, yeeeeee");
+    print(todo.title);
+    print(todo.description);
+    print(todo.id);
+    setState(() {
+      fetchTodoList();
+    });
   }
 
   void _handleDeleteToDOItem(String id) async{
@@ -178,6 +190,35 @@ class _HomePageState extends State<HomePage> {
       }
     } catch (e) {
       print('Error updating todo: $e');
+    }
+  }
+
+  Future<void> updatetodo(Todo todo, String newtitle, String newdescription) async {
+    try {
+      print("update todo statred");
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('todo')
+          .where('id', isEqualTo: todo.id)
+          .get();
+
+      print(querySnapshot);
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming 'userName' is unique, so there should be only one document
+        final userDocument = querySnapshot.docs.first;
+        await FirebaseFirestore.instance
+            .collection('todo')
+            .doc(userDocument.id) // Use the document ID to update the specific document
+            .update({
+          'title': newtitle,
+          'description': newdescription,
+        });
+
+        print('update todo successfully!');
+      } else {
+        print('No todo found with the provided id');
+      }
+    } catch (e) {
+      print('Error updating TTodo: $e');
     }
   }
 

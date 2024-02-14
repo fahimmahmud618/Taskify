@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/pages/update_task_page.dart';
 import 'package:taskify/styles.dart';
 import '../model/todo.dart';
 
@@ -7,8 +8,9 @@ class ToDoItem extends StatelessWidget {
   final Todo todo;
   final ontodochange;
   final ondelete;
+  final onedit;
 
-  const ToDoItem({Key? key, required this.todo, required this.ontodochange, required this.ondelete}): super(key:key);
+  const ToDoItem({Key? key, required this.todo, required this.ontodochange, required this.ondelete, required this.onedit}): super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class ToDoItem extends StatelessWidget {
               color: Colors.white70,
               icon: Icon(Icons.edit, size: 25*get_scale_factor(context)),
               onPressed: () {
-                // Handle edit functionality
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateTodoItem(todo: todo, editF: onedit,)));
                 print('edit button');
               },
             ),
