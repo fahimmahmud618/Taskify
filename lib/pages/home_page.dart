@@ -104,10 +104,27 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _handleDeleteToDOItem(String id) {
-    setState(() {
+  void _handleDeleteToDOItem(String id) async{
+    setState(()  {
       todoList.removeWhere((element) => element.id == id);
     });
+    try {
+      // Query Firestore to find documents with matching 'id' field
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('todo')
+          .where('id', isEqualTo: id)
+          .get();
+
+      // Iterate through the documents and delete each one
+      for (final doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      print('Todo(s) deleted successfully!');
+    } catch (e) {
+      print('Error deleting todo: $e');
+    }
+
   }
 
   void _addToDoItem(String todoTitle, String todoDescription) {
