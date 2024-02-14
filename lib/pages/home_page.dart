@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       Todo addedTodo = Todo(
         id: newID,
-        userName: "fahimm",
+        userName: currentUser,
         title: todoTitle,
         description: todoDescription,
         dateTime: DateTime.now().toString(),

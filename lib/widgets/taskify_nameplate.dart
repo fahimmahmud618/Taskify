@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/pages/leading_page.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/alert.dart';
 
@@ -30,7 +31,7 @@ Widget TaskifyNameplateWithLogOut(BuildContext context){
         ),
         TextButton.icon(
           onPressed: () {
-            showAlertDialog("Alert","Feilds cannot be empty!",context);
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>LeadingPage()));
           },
           icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
           label: Text("Log out", style: normalTextStyle(context)),
