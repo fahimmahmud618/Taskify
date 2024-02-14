@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  late String currentUser;
   late Todo todo1;
   late Todo todo2;
   late Todo todo3;
@@ -26,9 +27,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchTodoList() async {
     try {
+      currentUser = "fahim";
       // Fetch the data from Firestore
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-      await FirebaseFirestore.instance.collection("todo").orderBy('dateTime', descending: false).get();
+      await FirebaseFirestore.instance.collection("todo").where('userName', isEqualTo: currentUser).orderBy('dateTime', descending: false).get();
 
       // Convert the QuerySnapshot to a List<Todo>
       todoList = querySnapshot.docs
@@ -113,7 +115,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       Todo addedTodo = Todo(
         id: newID,
-        userName: "fahim",
+        userName: "fahimm",
         title: todoTitle,
         description: todoDescription,
         dateTime: DateTime.now().toString(),
