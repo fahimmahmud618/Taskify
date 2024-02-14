@@ -52,13 +52,6 @@ class _HomePageState extends State<HomePage> {
     // Initialize Todos and User in
     user1 = User(userName: "Fahim", password: "iit123",pin: "11");
     fetchTodoList();
-    // todo1 = Todo(id: "1",userName: user1.userName,title: "walk",description: "have to walk",dateTime: DateTime.now(),isDone: false);
-    // todo2 = Todo(id: "1",userName: user1.userName,title: "walk22",description: "have to walk",dateTime: DateTime.now(),isDone: false);
-    // todo3 = Todo(id: "1",userName: user1.userName,title: "walk2233",description: "have to walk",dateTime: DateTime.now(),isDone: false);
-    // // todo2 = Todo("2",user1.userName, "eat", "have to eat", DateTime.now(), false);
-    // // todo3 = Todo("3",user1.userName, "sleep", "have to eat", DateTime.now(), false);
-    // todoList = [todo1, todo2, todo3];
-    // foundedToDoFromSearch = todoList;
   }
 
   @override
@@ -102,6 +95,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       todo.isDone = !todo.isDone;
     });
+    updateisDone(todo.id, !todo.isDone);
   }
 
   void _handleDeleteToDOItem(String id) async{
@@ -158,6 +152,35 @@ class _HomePageState extends State<HomePage> {
       foundedToDoFromSearch = results;
     });
   }
+
+  Future<void> updateisDone(String id, bool isnowDone) async {
+    try {
+      print("update isdone statred");
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('todo')
+          .where('id', isEqualTo: id)
+          .get();
+
+      print(querySnapshot);
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming 'userName' is unique, so there should be only one document
+        final userDocument = querySnapshot.docs.first;
+        await FirebaseFirestore.instance
+            .collection('todo')
+            .doc(userDocument.id) // Use the document ID to update the specific document
+            .update({
+          'isDone': !isnowDone,
+        });
+
+        print('update isdone successfully!');
+      } else {
+        print('No todo found with the provided id');
+      }
+    } catch (e) {
+      print('Error updating todo: $e');
+    }
+  }
+
 
   Widget searchBox() {
     return Container(
