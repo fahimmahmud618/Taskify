@@ -1,6 +1,7 @@
 import 'package:cache_manager/cache_manager.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:taskify/cache_handle.dart';
 import 'package:taskify/pages/add_task_page.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/task_tile_widget.dart';
@@ -18,7 +19,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  late String currentUser;
+  String currentUser ="";
+  late String cUser;
   late Todo todo1;
   late Todo todo2;
   late Todo todo3;
@@ -29,7 +31,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchTodoList() async {
     try {
-      currentUser = "fahim";
+      currentUser = await ReadCache.getString(key: "cache") ;
+      print("this"+currentUser);
+      print("this"+caesarCipherDecode(currentUser,2));
+      print("this"+getUserNameFromChache(caesarCipherDecode(currentUser,2)));
+      currentUser = getUserNameFromChache(caesarCipherDecode(currentUser,2));
       // Fetch the data from Firestore
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
       await FirebaseFirestore.instance.collection("todo").where('userName', isEqualTo: currentUser).orderBy('dateTime', descending: false).get();
@@ -46,12 +52,13 @@ class _HomePageState extends State<HomePage> {
       print("Error fetching data: $e");
     }
   }
-
+  
   @override
   void initState() {
     super.initState();
     // print(mylocalPath);
     // Initialize Todos and User in
+    print(ReadCache.getString(key: "cache"));
     user1 = User(userName: "Fahim", password: "iit123",pin: "11");
     fetchTodoList();
   }
@@ -65,15 +72,19 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
-                CacheManagerUtils.cacheTextBuilder(
-                  textStyle: normalTextStyle(context),
-                  cacheKey: "cache"
-                ),
                 SizedBox(height: 10*get_scale_factor(context),),
                 TaskifyNameplateWithLogOut(context),
+                Container(
+                    margin: EdgeInsets.fromLTRB(20*get_scale_factor(context), 5*get_scale_factor(context), 20*get_scale_factor(context),10*get_scale_factor(context)),
+                    alignment: Alignment.topLeft,
+                    child: Text("Welcome ~$currentUser~", style: normalTextStyle(context),)),
                 searchBox(),
                 Expanded(child: ListView(
                   children: [
+                    foundedToDoFromSearch.length==0?
+                        Container(
+                            margin: EdgeInsets.fromLTRB(50*get_scale_factor(context), 150*get_scale_factor(context), 50*get_scale_factor(context),10*get_scale_factor(context)),
+                            child: Text("You currently have no tasks. Click on the '+' button in the bottom right to add some tasks.")):Text(""),
                     for(Todo todo in foundedToDoFromSearch)
                       ToDoItem(todo: todo,
                         ontodochange: _handleToDoChange,
