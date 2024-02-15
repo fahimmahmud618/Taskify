@@ -1,3 +1,4 @@
+import 'package:cache_manager/cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/widgets/alert.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
@@ -34,6 +35,7 @@ class _SignInState extends State<SignIn> {
 
       if (querySnapshot.docs.isNotEmpty) {
         // User found, navigate to home page
+        WriteCache.setString(key: "cache", value: usernameController.text!);
         Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         // User not found or credentials don't match

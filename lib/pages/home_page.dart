@@ -1,3 +1,4 @@
+import 'package:cache_manager/cache_manager.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/add_task_page.dart';
@@ -7,6 +8,7 @@ import 'package:taskify/widgets/taskify_nameplate.dart';
 import '../model/todo.dart';
 import '../model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_provider/path_provider.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    // print(mylocalPath);
     // Initialize Todos and User in
     user1 = User(userName: "Fahim", password: "iit123",pin: "11");
     fetchTodoList();
@@ -63,6 +65,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
+                CacheManagerUtils.cacheTextBuilder(
+                  textStyle: normalTextStyle(context),
+                  cacheKey: "cache"
+                ),
                 SizedBox(height: 10*get_scale_factor(context),),
                 TaskifyNameplateWithLogOut(context),
                 searchBox(),
