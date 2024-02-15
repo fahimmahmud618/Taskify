@@ -10,6 +10,27 @@ Widget InputTextWidget(String heading, String hintText, TextEditingController te
       children: [
         Text(heading, style: normalTextStyle(context)),
         TextField(
+          maxLines: null,
+          // obscureText: isHide,
+          controller: textEditingController,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: hintTextStyle(context),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+Widget InputTextWidgetPass(String heading, String hintText, TextEditingController textEditingController, bool isHide, BuildContext context) {
+  return Container(
+    margin: EdgeInsets.fromLTRB(20*get_scale_factor(context), 20*get_scale_factor(context), 20*get_scale_factor(context), 20*get_scale_factor(context)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(heading, style: normalTextStyle(context)),
+        TextField(
+          // maxLines: null,
           obscureText: isHide,
           controller: textEditingController,
           decoration: InputDecoration(

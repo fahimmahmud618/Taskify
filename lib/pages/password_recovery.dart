@@ -32,21 +32,21 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
             Text("Password Recovery", style: headingStyle(context)),
             SizedBox(height: 60*get_scale_factor(context),),
             InputTextWidget("Your Username", "Username",usernameController, false, context),
-            InputTextWidget("Recovery Pin (Enter the pin set during signup)", "Recovery Pin",recoveryPinController, true, context),
-            InputTextWidget("New Password (At least 6 character)", "Password", passwordController, true, context),
+            InputTextWidgetPass("Recovery Pin (Enter the pin set during signup)", "Recovery Pin",recoveryPinController, true, context),
+            InputTextWidgetPass("New Password (At least 6 character)", "Password", passwordController, true, context),
             TextButton.icon(
               onPressed: () {
-                updatePassword(usernameController.text,recoveryPinController.text, passwordController.text);
+                if(usernameController.text.isNotEmpty && recoveryPinController.text.isNotEmpty && passwordController.text.isNotEmpty){
+                  updatePassword(usernameController.text,recoveryPinController.text, passwordController.text);
+                }else{
+                  showAlertDialog("Error", "Field can not be empty", context);
+                }
+
               },
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),
               label: Text("Set new Password", style: normalTextStyle(context)),
             ),
-            InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
-              },
-              child: Text("Already have an account? Sign in", style: normalTextStyle(context)),
-            ),
+
           ],
         ),
       ),
@@ -73,7 +73,8 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
           'password': newPassword,
         });
         showAlertDialog("Info", 'Password has reset', context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
+        Navigator.pop(context);
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
         print('Password updated successfully!');
       } else {
         showAlertDialog("Error!", 'Wrong username or pin', context);

@@ -26,28 +26,32 @@ class _SignInState extends State<SignIn> {
     final userName = usernameController.text;
     final password = passwordController.text;
 
-    try {
-      // Query Firestore to check if the user exists with the provided credentials
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection("user")
-          .where('userName', isEqualTo: userName)
-          .where('password', isEqualTo: password)
-          .get();
+    if(userName.isNotEmpty && password.isNotEmpty){
+      try {
+        // Query Firestore to check if the user exists with the provided credentials
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection("user")
+            .where('userName', isEqualTo: userName)
+            .where('password', isEqualTo: password)
+            .get();
 
-      if (querySnapshot.docs.isNotEmpty) {
-        // User found, navigate to home page
-        WriteCache.setString(key: "cache", value: caesarCipherEncode(makeCache(usernameController.text, passwordController.text),2));
-        // WriteCache.setString(key: "username_cache", value: usernameController.text);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      } else {
-        // User not found or credentials don't match
-        // You can show an error message or handle it accordingly
-        showAlertDialog("Oops!", "Invalid username or password", context);
-        print("Invalid credentials");
+        if (querySnapshot.docs.isNotEmpty) {
+          // User found, navigate to home page
+          WriteCache.setString(key: "cache", value: caesarCipherEncode(makeCache(usernameController.text, passwordController.text),2));
+          // WriteCache.setString(key: "username_cache", value: usernameController.text);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else {
+          // User not found or credentials don't match
+          // You can show an error message or handle it accordingly
+          showAlertDialog("Oops!", "Invalid username or password", context);
+          print("Invalid credentials");
+        }
+      } catch (e) {
+        // Handle exceptions
+        print(e);
       }
-    } catch (e) {
-      // Handle exceptions
-      print(e);
+    }else{
+      showAlertDialog("Error", "Field can not be empty", context);
     }
   }
 
@@ -69,7 +73,7 @@ class _SignInState extends State<SignIn> {
             Text("Sign in in Taskify", style: headingStyle(context)),
             SizedBox(height: 60 * get_scale_factor(context)),
             InputTextWidget("Your Username (User name should be unique)", "Username", usernameController, false, context),
-            InputTextWidget("Password (At least 6 characters)", "Password", passwordController, true, context),
+            InputTextWidgetPass("Password (At least 6 characters)", "Password", passwordController, true, context),
             TextButton.icon(
               onPressed: signIn,
               icon: Icon(Icons.person, size: 20 * get_scale_factor(context)),

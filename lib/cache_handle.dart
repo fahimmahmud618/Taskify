@@ -26,3 +26,8 @@ String getUserNameFromChache(String input) {
 String makeCache(String u, String p){
   return u+"+"+p;
 }
+
+bool isPasswordOk(String x){
+  if(x.length>=6) return true;
+  else return false;
+}
