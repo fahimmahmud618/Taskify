@@ -243,7 +243,7 @@ class _HomePageState extends State<HomePage> {
   Widget searchBox() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5*get_scale_factor(context)),
-      margin: EdgeInsets.symmetric(vertical: 15*get_scale_factor(context), horizontal: 20*get_scale_factor(context)),
+      margin: EdgeInsets.fromLTRB(20*get_scale_factor(context), 15*get_scale_factor(context), 20*get_scale_factor(context), 0),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(17),
@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
       child: TextField(
         onChanged: (value)=> _runFilter(value),
         decoration: InputDecoration(
-          hintText: "Search",
+          hintText: "Search a task",
           hintStyle: hintTextStyle(context),
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
