@@ -44,11 +44,9 @@ class _SignInState extends State<SignIn> {
           // User not found or credentials don't match
           // You can show an error message or handle it accordingly
           showAlertDialog("Oops!", "Invalid username or password", context);
-          print("Invalid credentials");
         }
       } catch (e) {
         // Handle exceptions
-        print(e);
       }
     }else{
       showAlertDialog("Error", "Field can not be empty", context);
@@ -81,14 +79,12 @@ class _SignInState extends State<SignIn> {
             ),
             InkWell(
               onTap: () {
-                print("Forgot pass pressed");
                 Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordRecovery()));
               },
               child: Text("Forgot Password?", style: normalTextStyle(context)),
             ),
             InkWell(
               onTap: () {
-                print("sign up pressed");
                 Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
               },
               child: Text("Don't have an account? Sign Up", style: normalTextStyle(context)),

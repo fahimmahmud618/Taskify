@@ -44,7 +44,7 @@ TextStyle hintTextStyle(BuildContext context) {
 
   return TextStyle(
     color: Colors.white.withOpacity(0.6),
-    fontSize: 13 * scaleFactor, // Adjust the base font size as needed
+    fontSize: 12 * scaleFactor, // Adjust the base font size as needed
     // Add other text style properties as needed
   );
 }

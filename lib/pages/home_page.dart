@@ -1,15 +1,14 @@
 import 'package:cache_manager/cache_manager.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/cache_handle.dart';
 import 'package:taskify/pages/add_task_page.dart';
 import 'package:taskify/styles.dart';
+import 'package:taskify/widgets/alert.dart';
 import 'package:taskify/widgets/task_tile_widget.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import '../model/todo.dart';
 import '../model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:path_provider/path_provider.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -32,9 +31,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchTodoList() async {
     try {
       currentUser = await ReadCache.getString(key: "cache") ;
-      print("this"+currentUser);
-      print("this"+caesarCipherDecode(currentUser,2));
-      print("this"+getUserNameFromChache(caesarCipherDecode(currentUser,2)));
       currentUser = getUserNameFromChache(caesarCipherDecode(currentUser,2));
       // Fetch the data from Firestore
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -56,9 +52,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // print(mylocalPath);
-    // Initialize Todos and User in
-    print(ReadCache.getString(key: "cache"));
     user1 = User(userName: "Fahim", password: "iit123",pin: "11");
     fetchTodoList();
   }
@@ -118,10 +111,6 @@ class _HomePageState extends State<HomePage> {
 
   void _handleTodoEdit(Todo todo, String newT, String newD) {
     updatetodo(todo, newT, newD);
-    print("on edit function called, yeeeeee");
-    print(todo.title);
-    print(todo.description);
-    print(todo.id);
     setState(() {
       fetchTodoList();
     });
@@ -132,20 +121,17 @@ class _HomePageState extends State<HomePage> {
       todoList.removeWhere((element) => element.id == id);
     });
     try {
-      // Query Firestore to find documents with matching 'id' field
       final querySnapshot = await FirebaseFirestore.instance
           .collection('todo')
           .where('id', isEqualTo: id)
           .get();
 
-      // Iterate through the documents and delete each one
       for (final doc in querySnapshot.docs) {
         await doc.reference.delete();
       }
 
-      print('Todo(s) deleted successfully!');
     } catch (e) {
-      print('Error deleting todo: $e');
+      showAlertDialog("Error", 'Error deleting todo: $e', context);
     }
 
   }
@@ -172,7 +158,7 @@ class _HomePageState extends State<HomePage> {
       results=todoList;
     }else{
       results=todoList
-          .where((element) => element.title!
+          .where((element) => element.title
           .toLowerCase()
           .contains(enteredKeyword.toLowerCase())).toList();
     }
@@ -184,13 +170,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> updateisDone(String id, bool isnowDone) async {
     try {
-      print("update isdone statred");
       final querySnapshot = await FirebaseFirestore.instance
           .collection('todo')
           .where('id', isEqualTo: id)
           .get();
 
-      print(querySnapshot);
       if (querySnapshot.docs.isNotEmpty) {
         // Assuming 'userName' is unique, so there should be only one document
         final userDocument = querySnapshot.docs.first;
@@ -201,24 +185,20 @@ class _HomePageState extends State<HomePage> {
           'isDone': !isnowDone,
         });
 
-        print('update isdone successfully!');
       } else {
-        print('No todo found with the provided id');
       }
     } catch (e) {
-      print('Error updating todo: $e');
+      showAlertDialog("Error!", 'Error updating todo: $e', context);
     }
   }
 
   Future<void> updatetodo(Todo todo, String newtitle, String newdescription) async {
     try {
-      print("update todo statred");
       final querySnapshot = await FirebaseFirestore.instance
           .collection('todo')
           .where('id', isEqualTo: todo.id)
           .get();
 
-      print(querySnapshot);
       if (querySnapshot.docs.isNotEmpty) {
         // Assuming 'userName' is unique, so there should be only one document
         final userDocument = querySnapshot.docs.first;
@@ -230,9 +210,7 @@ class _HomePageState extends State<HomePage> {
           'description': newdescription,
         });
 
-        print('update todo successfully!');
       } else {
-        print('No todo found with the provided id');
       }
     } catch (e) {
       print('Error updating TTodo: $e');

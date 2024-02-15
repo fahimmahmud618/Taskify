@@ -32,7 +32,6 @@ class _SignUpState extends State<SignUp> {
 
       return querySnapshot.docs.isNotEmpty;
     } catch (e) {
-      print("Error checking userName existence: $e");
       return false;
     }
   }
@@ -89,7 +88,6 @@ class _SignUpState extends State<SignUp> {
             ),
             InkWell(
               onTap: (){
-                print("sign in pressed");
                 Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn()));
               },
               child: Text("Already have an account? Sign in", style: normalTextStyle(context)),

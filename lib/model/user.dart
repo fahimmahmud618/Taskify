@@ -1,4 +1,3 @@
-import 'package:taskify/model/todo.dart';
 
 class User {
   String userName;

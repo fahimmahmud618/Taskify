@@ -5,8 +5,6 @@ import 'package:taskify/widgets/alert.dart';
 import 'package:taskify/widgets/taskify_nameplate.dart';
 import 'package:taskify/styles.dart';
 import 'package:taskify/widgets/input_widget.dart';
-import 'package:taskify/pages/sign_in.dart';
-import 'package:taskify/pages/home_page.dart';
 
 class PasswordRecovery extends StatefulWidget {
   const PasswordRecovery({super.key});

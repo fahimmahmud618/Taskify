@@ -3,8 +3,6 @@ import 'package:cache_manager/cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/home_page.dart';
 import 'package:taskify/pages/sign_up.dart';
-import 'package:taskify/widgets/taskify_nameplate.dart';
-
 import '../styles.dart';
 class LeadingPage extends StatefulWidget {
   const LeadingPage({super.key});

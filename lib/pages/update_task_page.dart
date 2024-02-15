@@ -41,9 +41,6 @@ class _UpdateTodoItemState extends State<UpdateTodoItem> {
             TextButton.icon(
               onPressed: () {
                 if (taskTitle.text.isNotEmpty && taskDescription.text.isNotEmpty) {
-                  // Handle the update logic here
-                  // widget.addToDoItem(taskTitle.text, taskDescription.text);
-                  print("update completed");
                   widget.editF(widget.todo, taskTitle.text, taskDescription.text);
                   Navigator.pop(context);
                 } else {

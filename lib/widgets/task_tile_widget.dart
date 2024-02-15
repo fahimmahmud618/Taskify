@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/update_task_page.dart';
 import 'package:taskify/styles.dart';
@@ -31,7 +30,6 @@ class ToDoItem extends StatelessWidget {
       child: ListTile(
         onTap: (){
           ontodochange(todo);
-          print('clicked on the tile');
         },
         shape: RoundedRectangleBorder(
 
@@ -44,7 +42,7 @@ class ToDoItem extends StatelessWidget {
             size: 25*get_scale_factor(context)
         ),
         title: Text(
-          todo.title!,
+          todo.title,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -56,7 +54,7 @@ class ToDoItem extends StatelessWidget {
           children: [
             SizedBox(height: 6*get_scale_factor(context),),
             Text(
-              todo.description!,
+              todo.description,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 15*get_scale_factor(context),
@@ -65,10 +63,10 @@ class ToDoItem extends StatelessWidget {
             ),
             SizedBox(height: 10*get_scale_factor(context),),
             Text(
-              formatDateTimeString(todo.dateTime!),
+              formatDateTimeString(todo.dateTime),
               style: TextStyle(
                 color: Colors.white.withOpacity(0.6),
-                fontSize: 13*get_scale_factor(context),
+                fontSize: 12*get_scale_factor(context),
                 decoration: todo.isDone? TextDecoration.lineThrough: null,
               ),
             ),
@@ -82,7 +80,6 @@ class ToDoItem extends StatelessWidget {
               icon: Icon(Icons.edit, size: 25*get_scale_factor(context)),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateTodoItem(todo: todo, editF: onedit,)));
-                print('edit button');
               },
             ),
             SizedBox(width: 8*get_scale_factor(context)), // Adjust the width as needed for spacing
@@ -91,7 +88,6 @@ class ToDoItem extends StatelessWidget {
               icon: Icon(Icons.delete, size: 25*get_scale_factor(context)),
               onPressed: () {
                 ondelete(todo.id);
-                print('delete button');
               },
             ),
           ],

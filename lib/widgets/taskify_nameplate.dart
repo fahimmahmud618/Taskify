@@ -1,9 +1,7 @@
 import 'package:cache_manager/cache_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskify/pages/leading_page.dart';
 import 'package:taskify/styles.dart';
-import 'package:taskify/widgets/alert.dart';
 
 Widget TaskifyNameplate(BuildContext context){
   return Padding(
